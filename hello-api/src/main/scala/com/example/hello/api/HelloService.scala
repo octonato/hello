@@ -22,7 +22,7 @@ trait HelloService extends Service {
   /**
     * Example: curl http://localhost:9000/api/hello/Alice
     */
-  def hello2(id: String): ServiceCall[NotUsed, String]
+  def hello(id: String): ServiceCall[NotUsed, String]
 
   /**
     * Example: curl -H "Content-Type: application/json" -X POST -d '{"message":
@@ -41,7 +41,7 @@ trait HelloService extends Service {
     // @formatter:off
     named("hello")
       .withCalls(
-        pathCall("/api/hello/:id", hello2 _),
+        pathCall("/api/hello/:id", hello _),
         pathCall("/api/hello/:id", useGreeting _)
       )
       .withTopics(
