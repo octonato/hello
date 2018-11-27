@@ -25,7 +25,6 @@ class HelloServiceSpec extends AsyncWordSpec with Matchers with BeforeAndAfterAl
         answer should ===("Hello, Alice!")
       }
     }
-
     "allow responding with a custom message" in {
       for {
         _ <- client.useGreeting("Bob").invoke(GreetingMessage("Hi"))
