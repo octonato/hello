@@ -11,6 +11,6 @@ import scala.concurrent.Future
   */
 class HelloStreamServiceImpl(helloService: HelloService) extends HelloStreamService {
   def stream = ServiceCall { hellos =>
-    Future.successful(hellos.mapAsync(8)(helloService.hello(_).invoke()))
+    Future.successful(hellos.mapAsync(8)(helloService.hello2(_).invoke()))
   }
 }
