@@ -5,12 +5,14 @@ pull_request_rules:
       - base=master
       - "#approved-reviews-by>=1"
       - label=ready-to-merge
+      - title~=^((?![wip,WIP]).)*$
     actions:
       merge:
         method: squash
         strict: true
       label:
-        remove: ready-to-merge
+        remove: [ready-to-merge]
+      delete_head_branch: {}
   - name: backport patches to stable branch
     conditions:
       - base=master
@@ -21,4 +23,4 @@ pull_request_rules:
         branches:
           - stable
       label:
-        remove: needs-backporting
+        remove: [needs-backporting]
