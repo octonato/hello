@@ -1,18 +1,4 @@
 pull_request_rules:
-  - name: automatic merge on CI success and review
-    conditions:
-      - status-success=Travis CI - Pull Request
-      - base=master
-      - "#approved-reviews-by>=1"
-      - label=ready-to-merge
-      - title~=^((?![wip,WIP]).)*$
-    actions:
-      merge:
-        method: squash
-        strict: true
-      label:
-        remove: [ready-to-merge]
-      delete_head_branch: {}
   - name: backport patches to stable branch
     conditions:
       - base=master
@@ -24,3 +10,17 @@ pull_request_rules:
           - stable
       label:
         remove: [needs-backporting]
+        
+  - name: automatic merge on CI success and review
+    conditions:
+      - status-success=Travis CI - Pull Request
+      - base=master
+      - "#approved-reviews-by>=1"
+      - label=ready-to-merge
+    actions:
+      merge:
+        method: squash
+        strict: true
+      label:
+        remove: [ready-to-merge]
+      delete_head_branch: {}
