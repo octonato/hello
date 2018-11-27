@@ -21,14 +21,14 @@ class HelloServiceSpec extends AsyncWordSpec with Matchers with BeforeAndAfterAl
   "Hello service" should {
 
     "say hello" in {
-      client.hello2("Alice").invoke().map { answer =>
+      client.hello("Alice").invoke().map { answer =>
         answer should ===("Hello, Alice!")
       }
     }
     "allow responding with a custom message" in {
       for {
         _ <- client.useGreeting("Bob").invoke(GreetingMessage("Hi"))
-        answer <- client.hello2("Bob").invoke()
+        answer <- client.hello("Bob").invoke()
       } yield {
         answer should ===("Hi, Bob!")
       }
