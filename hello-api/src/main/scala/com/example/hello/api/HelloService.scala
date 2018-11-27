@@ -10,6 +10,7 @@ object HelloService  {
   val TOPIC_NAME = "greetings"
 }
 
+
 /**
   * The Hello service interface.
   * <p>
