@@ -24,3 +24,14 @@ pull_request_rules:
       label:
         remove: [ready-to-merge]
       delete_head_branch: {}
+
+  
+  - name: automatic merge cherrypick on stable
+    conditions:
+      - status-success=Travis CI - Pull Request
+      - base=stable
+    actions:
+      merge:
+        method: squash
+        strict: true
+      delete_head_branch: {}
