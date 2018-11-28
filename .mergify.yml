@@ -4,13 +4,20 @@ pull_request_rules:
     conditions:
       - status-success=Travis CI - Pull Request
       - base=master
-      - "#approved-reviews-by>=1"
-      - label=ready-to-merge
+      - label=merge-when-green
       - label!=work-in-progress
     actions:
       merge:
-        method: squash
+        method: merge
         strict: smart
+
+  - name: clean-up after merge
+    conditions:
+      - merged
+    actions:
+      label:
+        remove: [merge-when-green]
+      delete_head_branch: {}
 
   - name: backport patches to 1.0.x branch
     conditions:
@@ -35,34 +42,12 @@ pull_request_rules:
           - 1.1.x
       label:
         remove: [backport-1.1.x]
-
-  - name: clean-up after merge
-    conditions:
-      - base=master
-      - merged
-    actions:
-      label:
-        remove: [ready-to-merge]
-      delete_head_branch: {}
   
-  - name: automatic merge for mergify bot cherrypicks on 1.1.x
+  - name: automatic merge for mergify bot (backports)
     conditions:
       - status-success=Travis CI - Pull Request
       - author=mergify[bot]
-      - base=1.1.x
     actions:
       merge:
         method: merge
         strict: true
-      delete_head_branch: {}
-
-  - name: automatic merge for mergify bot cherrypicks on 1.0.x
-    conditions:
-      - status-success=Travis CI - Pull Request
-      - author=mergify[bot]
-      - base=1.0.x
-    actions:
-      merge:
-        method: merge
-        strict: true
-      delete_head_branch: {}
