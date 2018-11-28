@@ -1,15 +1,27 @@
 pull_request_rules:
-  - name: backport patches to stable branch
+  - name: backport patches to 1.0.x branch
     conditions:
       - base=master
       - merged
-      - label=needs-backporting
+      - label=backport-1.0.x
     actions:
       backport:
         branches:
-          - stable
+          - 1.0.x
       label:
-        remove: [needs-backporting]
+        remove: [backport-1.0.x]
+
+  - name: backport patches to 1.1.x branch
+    conditions:
+      - base=master
+      - merged
+      - label=backport-1.1.x
+    actions:
+      backport:
+        branches:
+          - 1.1.x
+      label:
+        remove: [backport-1.1.x]
         
   - name: automatic merge on CI success and review
     conditions:
@@ -17,21 +29,11 @@ pull_request_rules:
       - base=master
       - "#approved-reviews-by>=1"
       - label=ready-to-merge
+      - label!=work-in-progress
     actions:
       merge:
         method: squash
         strict: smart
       label:
         remove: [ready-to-merge]
-      delete_head_branch: {}
-
-  
-  - name: automatic merge cherrypick on stable
-    conditions:
-      - status-success=Travis CI - Pull Request
-      - base=stable
-    actions:
-      merge:
-        method: squash
-        strict: smart
       delete_head_branch: {}
