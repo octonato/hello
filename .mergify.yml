@@ -22,6 +22,15 @@ pull_request_rules:
           - 1.1.x
       label:
         remove: [backport-1.1.x]
+
+  - name: clean-up after merge
+    conditions:
+      - base=master
+      - merged
+    actions:
+      label:
+        remove: [ready-to-merge]
+      delete_head_branch: {}
         
   - name: automatic merge on CI success and review
     conditions:
@@ -34,6 +43,3 @@ pull_request_rules:
       merge:
         method: squash
         strict: smart
-      label:
-        remove: [ready-to-merge]
-      delete_head_branch: {}
