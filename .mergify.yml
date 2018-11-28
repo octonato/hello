@@ -55,7 +55,7 @@ pull_request_rules:
 
   - name: auto add wip
     conditions:
-      - title~=^((?![wip,WIP]).)*$
+      - title~=^(wip|WIP).*
     actions:
       label:
         add: ["work-in-progress"]
