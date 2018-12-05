@@ -4,6 +4,7 @@ pull_request_rules:
     conditions:
       - status-success=Travis CI - Pull Request
       - base=master
+      - "#approved-reviews-by=#review-requested"
       - label=merge-when-green
       - label!=block-merge
     actions:
