@@ -5,6 +5,7 @@ version in ThisBuild := "1.0-SNAPSHOT"
 // the Scala version that will be used for cross-compiled libraries
 scalaVersion in ThisBuild := "2.12.7"
 
+// one comment
 // dependencies
 val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.0" % "provided"
 
